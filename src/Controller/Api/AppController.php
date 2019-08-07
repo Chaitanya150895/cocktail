@@ -47,5 +47,6 @@ class AppController extends Controller
             'unauthorizedRedirect' => false,
             'checkAuthIn' => 'Controller.initialize'
         ]);
+        
     }
 }
