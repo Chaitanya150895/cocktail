@@ -43,14 +43,20 @@ use Cake\Routing\Route\DashedRoute;
  * constructor in your `src/Application.php` file to change this behavior.
  *
  */
+
+Router::prefix('api', function ($routes) {
+    $routes->extensions(['json', 'xml']);
+    $routes->resources('Cocktails');
+});
+
 Router::defaultRouteClass(DashedRoute::class);
 
-Router::extensions(['json', 'xml']);
+// Router::extensions(['json', 'xml']);
 
 Router::scope('/', function (RouteBuilder $routes) {
 
 
-    $routes->resources('Cocktails');
+    // $routes->resources('Cocktails');
 
     // Register scoped middleware for in scopes.
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
