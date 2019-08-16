@@ -9,6 +9,20 @@ class AppController extends Controller
 
     use \Crud\Controller\ControllerTrait;
 
+    public function beforeFilter(Event $event)
+    {
+       
+        parent::beforeFilter($event);
+        $this->response = $this->response->cors($this->request)
+        ->allowOrigin(['*'])
+        ->allowMethods(['GET', 'POST'])
+        ->allowHeaders(['X-CSRF-Token'])
+        ->allowCredentials()
+        ->exposeHeaders(['Link'])
+        ->maxAge(300)
+        ->build();
+    }
+
     public function initialize()
     {
         parent::initialize();
@@ -23,8 +37,8 @@ class AppController extends Controller
                 'Crud.Delete'
             ],
             'listeners' => [
-                'CrudJsonApi.JsonApi',
-                'CrudJsonApi.Pagination', // Pagination != ApiPagination
+                'Crud.Api',
+                'Crud.ApiPagination',
                 'Crud.ApiQueryLog'
             ]
         ]);
